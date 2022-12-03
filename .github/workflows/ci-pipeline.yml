@@ -1,0 +1,28 @@
+name: Publish Pipeline
+run-name: ${{ github.actor }}
+on: [Push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup JDK Environment
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Build
+        run: mvn --batch-mode -DskipTests package
+
+      - name: Test
+        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+
+      - name: Publish Report
+        uses: mikepenz/action-junit-report@v3.6.1
+        if: always()
+        with:
+          name: junit-test-results
+          report_paths: '**/build/test-results/test/TEST-*.xml'
