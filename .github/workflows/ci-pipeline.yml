@@ -1,8 +1,8 @@
 name: Publish Pipeline
 run-name: ${{ github.actor }}
-on: [Push]
+on: [push]
 jobs:
-  build:
+  Test Stage:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
