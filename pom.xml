@@ -115,7 +115,7 @@
 		</plugins>
 		<!--suppress UnresolvedMavenProperty -->
 		<!--Bug of Plugin -->
-		<finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
+		<finalName>${project.version}.${buildNumber}</finalName>
 	</build>
 	<repositories>
 		<repository>
