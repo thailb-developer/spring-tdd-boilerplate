@@ -10,13 +10,19 @@
 	</parent>
 	<groupId>com.thailb</groupId>
 	<artifactId>testcontainer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>demo-test</name>
 	<description>Demo Integration Test with Testcontainer</description>
 	<properties>
 		<java.version>17</java.version>
 		<testcontainers.version>1.17.6</testcontainers.version>
 	</properties>
+	<scm>
+		<connection>scm:git:git://github.com/thailb-developer/spring-tdd-boilerplate.git</connection>
+		<developerConnection>scm:git:git@github.com:thailb-developer/spring-tdd-boilerplate.git</developerConnection>
+		<url>https://github.com/thailb-developer/spring-tdd-boilerplate</url>
+		<tag>HEAD</tag>
+	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -51,6 +57,12 @@
 			<artifactId>mongodb</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>buildnumber-maven-plugin</artifactId>
+			<version>3.0.0</version>
+			<type>maven-plugin</type>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -78,7 +90,32 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>buildNumber</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>{0, number}</format>
+					<items>
+						<item>buildNumber</item>
+					</items>
+					<doCheck>true</doCheck>
+					<doUpdate>true</doUpdate>
+				</configuration>
+			</plugin>
 		</plugins>
+		<!--suppress UnresolvedMavenProperty -->
+		<!--Bug of Plugin -->
+		<finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
 	</build>
 	<repositories>
 		<repository>
