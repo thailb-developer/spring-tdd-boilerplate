@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+  <Appenders>
+    <Console name="LogToConsole" target="SYSTEM_OUT">
+      <JSONLayout complete="false" compact="true" eventEol="true" />
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.thailb" level="debug" additivity="false">
+      <AppenderRef ref="LogToConsole"/>
+    </Logger>
+    <Logger name="org.springframework.boot" level="error" additivity="false">
+      <AppenderRef ref="LogToConsole"/>
+    </Logger>
+    <Root level="error">
+      <AppenderRef ref="LogToConsole"/>
+    </Root>
+  </Loggers>
+</Configuration>
